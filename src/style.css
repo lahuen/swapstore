@@ -1,0 +1,411 @@
+/* Swap Store — warm, Anthropic-inspired palette on Pico CSS */
+
+/* Must use [data-theme="light"] to override Pico v2 specificity */
+[data-theme="light"],
+:root {
+  /* Palette */
+  --color-bg: #e8e6dc;
+  --color-bg-light: #f5f4ed;
+  --color-surface: #faf8f4;
+  --color-border: rgba(194, 192, 182, 0.4);
+  --color-border-strong: rgba(194, 192, 182, 0.7);
+  --color-text: #141413;
+  --color-text-secondary: #30302e;
+  --color-text-muted: rgba(20, 20, 19, 0.5);
+  --color-coral: #d97757;
+  --color-coral-hover: #c4654a;
+  --color-coral-light: rgba(217, 119, 87, 0.12);
+  --color-amber: #eda100;
+  --color-sage: #93b574;
+  --color-sage-hover: #7da15e;
+  --color-selection: rgba(204, 120, 92, 0.3);
+
+  /* Typography */
+  --pico-font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --pico-font-size: 100%;
+  --pico-line-height: 1.6;
+
+  /* Backgrounds */
+  --pico-background-color: var(--color-bg);
+  --pico-card-background-color: var(--color-surface);
+  --pico-card-border-color: var(--color-border);
+  --pico-card-sectioning-background-color: var(--color-bg-light);
+
+  /* Text */
+  --pico-color: var(--color-text);
+  --pico-h1-color: var(--color-text);
+  --pico-h2-color: var(--color-text);
+  --pico-h3-color: var(--color-text);
+  --pico-h4-color: var(--color-text);
+  --pico-muted-color: var(--color-text-muted);
+  --pico-muted-border-color: var(--color-border);
+
+  /* Primary — coral (CTAs, main actions) */
+  --pico-primary: var(--color-coral);
+  --pico-primary-hover: var(--color-coral-hover);
+  --pico-primary-background: var(--color-coral);
+  --pico-primary-hover-background: var(--color-coral-hover);
+  --pico-primary-focus: var(--color-coral-light);
+  --pico-primary-inverse: #fff;
+  --pico-primary-underline: var(--color-coral);
+
+  /* Secondary — sage (secondary actions) */
+  --pico-secondary: var(--color-sage);
+  --pico-secondary-hover: var(--color-sage-hover);
+  --pico-secondary-background: var(--color-sage);
+  --pico-secondary-hover-background: var(--color-sage-hover);
+  --pico-secondary-focus: rgba(147, 181, 116, 0.2);
+  --pico-secondary-inverse: #fff;
+  --pico-secondary-underline: var(--color-sage);
+
+  /* Contrast — dark charcoal */
+  --pico-contrast: var(--color-text);
+  --pico-contrast-hover: #000;
+  --pico-contrast-background: var(--color-text);
+  --pico-contrast-hover-background: #000;
+  --pico-contrast-inverse: var(--color-bg-light);
+  --pico-contrast-focus: rgba(20, 20, 19, 0.15);
+  --pico-contrast-underline: var(--color-text);
+
+  /* Borders */
+  --pico-border-color: var(--color-border);
+  --pico-border-radius: 0.5rem;
+
+  /* Status */
+  --pico-ins-color: var(--color-sage);
+  --pico-del-color: #b44a3e;
+  --pico-mark-background-color: rgba(237, 161, 0, 0.15);
+  --pico-mark-color: var(--color-text);
+
+  /* Forms */
+  --pico-form-element-background-color: var(--color-surface);
+  --pico-form-element-selected-background-color: var(--color-coral);
+  --pico-form-element-border-color: var(--color-border-strong);
+  --pico-form-element-color: var(--color-text);
+  --pico-form-element-placeholder-color: var(--color-text-muted);
+  --pico-form-element-active-background-color: var(--color-surface);
+  --pico-form-element-active-border-color: var(--color-coral);
+  --pico-form-element-focus-color: var(--color-coral);
+  --pico-form-element-disabled-background-color: var(--color-bg-light);
+  --pico-form-element-disabled-border-color: var(--color-border);
+  --pico-form-element-disabled-opacity: 0.5;
+  --pico-form-element-invalid-border-color: #b44a3e;
+  --pico-form-element-invalid-active-border-color: #b44a3e;
+  --pico-form-element-invalid-focus-color: rgba(180, 74, 62, 0.2);
+  --pico-form-element-valid-border-color: var(--color-sage);
+  --pico-form-element-valid-active-border-color: var(--color-sage);
+  --pico-form-element-valid-focus-color: rgba(107, 124, 94, 0.2);
+
+  /* Switches & checkboxes */
+  --pico-switch-background-color: var(--color-border-strong);
+  --pico-switch-checked-background-color: var(--color-coral);
+  --pico-switch-color: var(--color-surface);
+
+  /* Labels */
+  --pico-label-color: var(--color-text-secondary);
+
+  /* Tables */
+  --pico-table-border-color: var(--color-border);
+  --pico-table-row-stripped-background-color: var(--color-bg-light);
+
+  /* Tooltips */
+  --pico-tooltip-background-color: var(--color-text);
+  --pico-tooltip-color: var(--color-bg-light);
+
+  /* Progress */
+  --pico-progress-background-color: var(--color-border);
+  --pico-progress-color: var(--color-coral);
+
+  /* Loading (aria-busy) */
+  --pico-loading-spinner-opacity: 0.6;
+
+  /* Accordion */
+  --pico-accordion-border-color: var(--color-border);
+  --pico-accordion-active-summary-color: var(--color-coral);
+  --pico-accordion-open-summary-color: var(--color-coral);
+}
+
+/* Headings — serif for warmth */
+h1, h2, h3, h4, h5, h6,
+hgroup > :first-child {
+  font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  color: var(--color-text);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Links */
+a {
+  color: var(--color-coral);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  color: var(--color-coral-hover);
+}
+
+/* Buttons — [data-theme] needed to beat Pico v2 specificity */
+[data-theme="light"] button,
+[data-theme="light"] [role="button"],
+[data-theme="light"] input[type="submit"],
+[data-theme="light"] input[type="button"],
+[data-theme="light"] input[type="reset"] {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  background-color: var(--color-coral);
+  border-color: var(--color-coral);
+  color: #fff;
+}
+[data-theme="light"] button:hover,
+[data-theme="light"] [role="button"]:hover,
+[data-theme="light"] input[type="submit"]:hover,
+[data-theme="light"] input[type="button"]:hover {
+  background-color: var(--color-coral-hover);
+  border-color: var(--color-coral-hover);
+  color: #fff;
+}
+
+/* Secondary — sage */
+[data-theme="light"] button.secondary,
+[data-theme="light"] [role="button"].secondary {
+  background-color: var(--color-sage);
+  border-color: var(--color-sage);
+  color: #fff;
+}
+[data-theme="light"] button.secondary:hover,
+[data-theme="light"] [role="button"].secondary:hover {
+  background-color: var(--color-sage-hover);
+  border-color: var(--color-sage-hover);
+  color: #fff;
+}
+
+/* Contrast — dark charcoal */
+[data-theme="light"] button.contrast,
+[data-theme="light"] [role="button"].contrast {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg-light);
+}
+[data-theme="light"] button.contrast:hover,
+[data-theme="light"] [role="button"].contrast:hover {
+  background-color: #000;
+  border-color: #000;
+  color: var(--color-bg-light);
+}
+
+/* Outline — transparent */
+[data-theme="light"] button.outline,
+[data-theme="light"] [role="button"].outline {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+[data-theme="light"] button.outline:hover,
+[data-theme="light"] [role="button"].outline:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+  background-color: transparent;
+}
+
+/* Cards */
+article {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+article:hover {
+  box-shadow: 0 4px 24px rgba(20, 20, 19, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Navigation bar */
+nav.container-fluid {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Active nav link — ✦ before text + shimmer */
+.active-link {
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-decoration: none;
+  padding: .15rem .4rem;
+  border-radius: .25rem;
+}
+.active-link::before {
+  content: '✦ ';
+  font-size: 0.55em;
+  color: var(--color-coral);
+  vertical-align: middle;
+}
+.active-link::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(217, 119, 87, 0.1) 45%,
+    rgba(217, 119, 87, 0.2) 50%,
+    rgba(217, 119, 87, 0.1) 55%,
+    transparent 60%
+  );
+  animation: shimmer-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Card grid for feed */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 576px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+  }
+  nav ul {
+    gap: 0 !important;
+    font-size: .85rem;
+  }
+}
+
+/* Form inputs — warm focus */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-coral) !important;
+  box-shadow: 0 0 0 3px var(--color-coral-light);
+}
+
+/* Subtle separator */
+hr {
+  border-color: var(--color-border);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-selection);
+  color: var(--color-text);
+}
+
+/* Info boxes (wallet, hints) */
+.info-box {
+  background: var(--color-bg-light);
+  padding: 1rem;
+  border-radius: var(--pico-border-radius);
+  border: 1px solid var(--color-border);
+}
+
+/* Role badges */
+.role-badge {
+  display: inline-block;
+  padding: .1rem .4rem;
+  border-radius: .25rem;
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.role-badge--admin { background: var(--color-coral-light); color: var(--color-coral); }
+.role-badge--support { background: rgba(147, 181, 116, 0.15); color: var(--color-sage); }
+.role-badge--store { background: rgba(237, 161, 0, 0.15); color: var(--color-amber); }
+
+/* Ticket status badges */
+.ticket-status {
+  display: inline-block;
+  padding: .15rem .4rem;
+  border-radius: .25rem;
+  font-size: .7rem;
+  font-weight: 600;
+}
+.ticket-status--open { background: rgba(237, 161, 0, 0.15); color: var(--color-amber); }
+.ticket-status--in_progress { background: var(--color-coral-light); color: var(--color-coral); }
+.ticket-status--resolved { background: rgba(147, 181, 116, 0.15); color: var(--color-sage); }
+.ticket-status--closed { background: rgba(20, 20, 19, 0.08); color: var(--color-text-muted); }
+
+/* Ticket priority */
+.ticket-priority--high { color: #b44a3e; font-weight: 600; }
+.ticket-priority--low { color: var(--color-text-muted); }
+
+/* Ticket messages */
+.ticket-message--user,
+.ticket-message--staff {
+  padding: .5rem .75rem;
+  border-radius: var(--pico-border-radius);
+  font-size: .9rem;
+}
+.ticket-message--user {
+  background: var(--color-bg-light);
+  border-left: 3px solid var(--color-border-strong);
+}
+.ticket-message--staff {
+  background: rgba(147, 181, 116, 0.08);
+  border-left: 3px solid var(--color-sage);
+}
+
+/* Active filter button override */
+.active-filter {
+  font-weight: 700;
+}
+
+/* Shimmer effect — diagonal light sweep */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 60%
+  );
+  animation: shimmer-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer-sweep {
+  0%, 100% { transform: translateX(-20%); }
+  50% { transform: translateX(320%); }
+}
+
+/* Light variant for light-bg elements */
+.shimmer-light::after {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(217, 119, 87, 0.08) 45%,
+    rgba(217, 119, 87, 0.18) 50%,
+    rgba(217, 119, 87, 0.08) 55%,
+    transparent 60%
+  );
+}
+
+/* Scrollbar (webkit) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg-light); }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }

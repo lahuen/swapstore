@@ -1,0 +1,75 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: get the user's role from their profile doc
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function isAdmin() {
+      return request.auth != null && userRole() == 'admin';
+    }
+    function isStaff() {
+      return request.auth != null && (userRole() == 'admin' || userRole() == 'support');
+    }
+
+    // Admin: full read access to all documents
+    match /{document=**} {
+      allow read: if isAdmin();
+    }
+
+    // Platform config: any authenticated can read, admin only write
+    match /config/{docId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // Users: anyone authenticated can read, own profile can write (except role), admin can write anything
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && (
+        (request.auth.uid == userId && !('role' in request.resource.data) || request.resource.data.role == resource.data.role)
+        || isAdmin()
+      );
+    }
+
+    // Listings: anyone authenticated can read, only owner can write
+    match /listings/{listingId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+
+    // Transactions: buyer and seller can read/write
+    match /transactions/{txId} {
+      allow read: if request.auth != null &&
+        (request.auth.uid == resource.data.buyerId || request.auth.uid == resource.data.sellerId);
+      allow create: if request.auth != null;
+      allow update: if request.auth != null &&
+        (request.auth.uid == resource.data.buyerId || request.auth.uid == resource.data.sellerId);
+    }
+
+    // Wallet ledger: user can read own entries, create via app logic
+    match /wallet_ledger/{entryId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null;
+    }
+
+    // Reports (legacy): any user can create, admin can read/update
+    match /reports/{reportId} {
+      allow create: if request.auth != null;
+      allow read, update: if isAdmin();
+    }
+
+    // Tickets: creator can read/update own, staff (support+admin) can read/update all
+    match /tickets/{ticketId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null &&
+        (request.auth.uid == resource.data.creatorId || isStaff());
+      allow update: if request.auth != null &&
+        (request.auth.uid == resource.data.creatorId || isStaff());
+    }
+  }
+}

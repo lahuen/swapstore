@@ -33,7 +33,7 @@ onAuthStateChanged(auth, async (user) => {
         <div style="display:flex;justify-content:center;align-items:center;min-height:100vh;text-align:center;padding:1rem;">
           <div>
             <h2>Cuenta suspendida</h2>
-            <p style="color:var(--color-text-muted);max-width:400px;">Tu cuenta fue suspendida por un administrador. Si crees que es un error, contactanos a <a href="mailto:cbd.preparados@gmail.com">cbd.preparados@gmail.com</a>.</p>
+            <p style="color:var(--color-text-muted);max-width:400px;">Tu cuenta fue suspendida por un administrador. Si crees que es un error, usa la seccion de soporte o contacta al equipo.</p>
             <a href="#" id="logout-suspended" role="button" class="outline">Cerrar sesion</a>
           </div>
         </div>`;
@@ -61,9 +61,19 @@ function renderLayout() {
   const photo = auth.currentUser?.photoURL;
 
   root.innerHTML = `
-    <nav class="container-fluid" style="display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;">
-      <a href="#feed" style="text-decoration:none;"><strong>Swap Store</strong></a>
-      <ul style="display:flex;gap:.25rem;list-style:none;margin:0;padding:0;">
+    <nav class="container-fluid app-nav">
+      <div class="nav-top">
+        <a href="#feed" style="text-decoration:none;"><strong>Swap Store</strong></a>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <a href="#wallet" class="nav-link shimmer shimmer-light" data-tab="#wallet" style="text-decoration:none;font-weight:600;color:var(--color-coral);padding:.15rem .5rem;border-radius:.25rem;" id="wallet-badge" title="Tus gestos">✦--</a>
+          <a href="#profile" class="nav-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
+            ${photo ? `<img src="${esc(photo)}" alt="" style="width:28px;height:28px;border-radius:50%;">` : ''}
+            <small>${displayName}</small>
+          </a>
+          <a href="#" id="logout-btn" style="font-size:.8rem;">Salir</a>
+        </div>
+      </div>
+      <ul class="nav-tabs">
         <li><a href="#feed" class="nav-link" data-tab="#feed">Explorar</a></li>
         <li><a href="#new" class="nav-link" data-tab="#new">Publicar</a></li>
         <li><a href="#deals" class="nav-link" data-tab="#deals">Tratos</a></li>
@@ -71,14 +81,6 @@ function renderLayout() {
         <li id="nav-support" style="display:none;"><a href="#support" class="nav-link" data-tab="#support">Soporte</a></li>
         <li id="nav-admin" style="display:none;"><a href="#admin" class="nav-link" data-tab="#admin">Admin</a></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:.5rem;">
-        <a href="#wallet" class="nav-link shimmer shimmer-light" data-tab="#wallet" style="text-decoration:none;font-weight:600;color:var(--color-coral);padding:.15rem .5rem;border-radius:.25rem;" id="wallet-badge" title="Tus gestos">✦--</a>
-        <a href="#profile" class="nav-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
-          ${photo ? `<img src="${esc(photo)}" alt="" style="width:28px;height:28px;border-radius:50%;">` : ''}
-          <small>${displayName}</small>
-        </a>
-        <a href="#" id="logout-btn" style="font-size:.8rem;">Salir</a>
-      </div>
     </nav>
     <main id="view" class="container-fluid"></main>
   `;

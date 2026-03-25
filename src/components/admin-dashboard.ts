@@ -103,7 +103,7 @@ function renderDashboardContent(container: HTMLElement, data: DashboardData): vo
         <summary style="cursor:pointer;font-weight:600;font-size:1.2rem;color:var(--color-coral);margin-bottom:.75rem;">Configuracion de la plataforma</summary>
         <article style="padding:1.25rem;margin:0;">
           <form id="config-form">
-          <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;">
             <div>
               <label for="cfg-gesto-ars">Valor del Gesto (ARS)</label>
               <input type="number" id="cfg-gesto-ars" name="gestoValueARS" min="1" step="100" value="${cfg.gestoValueARS}" required>
@@ -130,7 +130,7 @@ function renderDashboardContent(container: HTMLElement, data: DashboardData): vo
 
       <!-- Users section -->
       <h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.2rem;color:var(--color-coral);">Comunidad</h3>
-      <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:1rem;">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;">
         <article style="text-align:center;padding:1.25rem;margin:0;">
           <div style="font-size:2rem;font-weight:700;color:var(--color-text);">${totalUsers}</div>
           <small style="color:var(--color-text-muted);">Registrados</small>
@@ -203,7 +203,7 @@ function renderDashboardContent(container: HTMLElement, data: DashboardData): vo
 
       <!-- Listings section -->
       <h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.2rem;color:var(--color-coral);">Publicaciones</h3>
-      <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem;">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
         <article style="padding:1.25rem;margin:0;">
           <div style="font-size:2rem;font-weight:700;color:var(--color-text);">${totalActive}</div>
           <small style="color:var(--color-text-muted);">Activas (de ${listings.length} total)</small>
@@ -231,7 +231,7 @@ function renderDashboardContent(container: HTMLElement, data: DashboardData): vo
 
       <!-- Transactions section -->
       <h3 style="margin-top:2rem;margin-bottom:.75rem;font-size:1.2rem;color:var(--color-coral);">Actividad</h3>
-      <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem;">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
         <article style="padding:1.25rem;margin:0;">
           <div style="font-size:2rem;font-weight:700;color:var(--color-text);">${totalTx}</div>
           <small style="color:var(--color-text-muted);">Total transacciones</small>

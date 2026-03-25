@@ -6,11 +6,11 @@ import type { Listing, WithId } from '../lib/types';
 export function renderFeed(container: HTMLElement): () => void {
   container.innerHTML = `
     <div class="container-fluid">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:1rem;">
         <h2 style="margin:0;">Explorar</h2>
-        <div style="display:flex;gap:.5rem;">
-          <input type="search" id="feed-search" placeholder="Buscar..." style="margin:0;max-width:200px;">
-          <select id="feed-filter" style="margin:0;max-width:140px;">
+        <div style="display:flex;gap:.5rem;flex:1;justify-content:flex-end;min-width:0;">
+          <input type="search" id="feed-search" placeholder="Buscar..." style="margin:0;flex:1;min-width:0;max-width:200px;">
+          <select id="feed-filter" style="margin:0;flex-shrink:0;max-width:140px;">
             <option value="">Todo</option>
             <option value="product">Productos</option>
             <option value="service">Servicios</option>

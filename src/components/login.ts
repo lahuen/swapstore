@@ -13,9 +13,9 @@ export function renderLogin(container: HTMLElement) {
       </section>
 
       <!-- Image + Login side by side -->
-      <section style="display:flex;align-items:stretch;gap:2rem;max-width:820px;width:92%;flex-wrap:wrap;justify-content:center;">
-        <img src="/swap-home.png" alt="Intercambio comunitario" style="flex:1 1 340px;max-width:380px;width:100%;border-radius:1rem;box-shadow:0 4px 24px rgba(20,20,19,0.08);object-fit:cover;">
-        <div class="shimmer" style="flex:1 1 340px;max-width:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#d5d0c3;padding:2rem 1.5rem;border-radius:.75rem;border:none;">
+      <section class="hero-row">
+        <img src="/swap-home.png" alt="Intercambio comunitario" class="hero-img">
+        <div class="shimmer hero-login">
           <p style="color:var(--color-text);font-size:1.1rem;font-weight:600;margin:0 0 .5rem;">Unite a la comunidad</p>
           <p style="color:var(--color-text-muted);font-size:.85rem;margin:0 0 1.5rem;">Empeza a intercambiar en segundos</p>
           <button id="google-login" class="contrast" style="width:100%;font-size:1rem;">
@@ -32,7 +32,7 @@ export function renderLogin(container: HTMLElement) {
       </section>
 
       <!-- About -->
-      <section style="max-width:600px;width:90%;margin-top:2rem;padding-bottom:3rem;">
+      <section style="max-width:680px;width:92%;margin-top:2rem;padding-bottom:3rem;">
         <h2 style="text-align:center;font-size:1.6rem;margin-bottom:1.5rem;">Sobre Swap Store</h2>
 
         <article style="margin:0 0 1rem;padding:1.25rem;background:var(--color-bg-light);border:1px solid var(--color-border);">

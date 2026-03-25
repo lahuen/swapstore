@@ -19,7 +19,7 @@ export async function renderListingDetail(container: HTMLElement, listingId: str
   const isOwner = listing.userId === auth.currentUser?.uid;
 
   const images = listing.images?.length
-    ? listing.images.map(u => `<img src="${esc(u)}" style="max-height:300px;border-radius:var(--pico-border-radius);object-fit:contain;">`).join('')
+    ? listing.images.map(u => `<img src="${esc(u)}" style="max-height:300px;width:100%;border-radius:var(--pico-border-radius);object-fit:contain;">`).join('')
     : '<div style="height:200px;background:var(--color-bg-light);border-radius:var(--pico-border-radius);display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);">Sin imagen</div>';
 
   const priceText = listing.cashPrice ? `$${listing.cashPrice.toLocaleString('es-AR')}` : '';

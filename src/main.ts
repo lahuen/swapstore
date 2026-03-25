@@ -66,20 +66,25 @@ function renderLayout() {
         <a href="#feed" style="text-decoration:none;"><strong>Swap Store</strong></a>
         <div style="display:flex;align-items:center;gap:.5rem;">
           <a href="#wallet" class="nav-link shimmer shimmer-light" data-tab="#wallet" style="text-decoration:none;font-weight:600;color:var(--color-coral);padding:.15rem .5rem;border-radius:.25rem;" id="wallet-badge" title="Tus gestos">✦--</a>
-          <a href="#profile" class="nav-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
+          <a href="#profile" class="nav-link nav-profile-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
             ${photo ? `<img src="${esc(photo)}" alt="" style="width:28px;height:28px;border-radius:50%;">` : ''}
             <small>${displayName}</small>
           </a>
-          <a href="#" id="logout-btn" style="font-size:.8rem;">Salir</a>
+          <a href="#" id="logout-btn" class="nav-logout" style="font-size:.8rem;">Salir</a>
+          <button id="menu-toggle" class="menu-toggle" aria-label="Menú">
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
-      <ul class="nav-tabs">
+      <ul class="nav-tabs" id="nav-tabs">
         <li><a href="#feed" class="nav-link" data-tab="#feed">Explorar</a></li>
         <li><a href="#new" class="nav-link" data-tab="#new">Publicar</a></li>
         <li><a href="#deals" class="nav-link" data-tab="#deals">Tratos</a></li>
         <li><a href="#mine" class="nav-link" data-tab="#mine">Mis avisos</a></li>
         <li id="nav-support" style="display:none;"><a href="#support" class="nav-link" data-tab="#support">Soporte</a></li>
         <li id="nav-admin" style="display:none;"><a href="#admin" class="nav-link" data-tab="#admin">Admin</a></li>
+        <li class="nav-mobile-only"><a href="#profile" class="nav-link" data-tab="#profile">Perfil</a></li>
+        <li class="nav-mobile-only"><a href="#" id="logout-btn-mobile" style="font-size:.85rem;">Salir</a></li>
       </ul>
     </nav>
     <main id="view" class="container-fluid"></main>
@@ -88,6 +93,25 @@ function renderLayout() {
   document.getElementById('logout-btn')!.addEventListener('click', (e) => {
     e.preventDefault();
     signOut(auth);
+  });
+  document.getElementById('logout-btn-mobile')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOut(auth);
+  });
+
+  // Hamburger toggle
+  const menuToggle = document.getElementById('menu-toggle')!;
+  const navTabs = document.getElementById('nav-tabs')!;
+  menuToggle.addEventListener('click', () => {
+    const open = navTabs.classList.toggle('open');
+    menuToggle.classList.toggle('open', open);
+  });
+  // Close menu on nav link click (mobile)
+  navTabs.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      navTabs.classList.remove('open');
+      menuToggle.classList.remove('open');
+    }
   });
 
   // Live-update wallet badge + nav role links

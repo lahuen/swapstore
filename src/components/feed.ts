@@ -7,7 +7,7 @@ export function renderFeed(container: HTMLElement): () => void {
   container.innerHTML = `
     <div class="container-fluid">
       <div class="feed-header">
-        <h2 style="margin:0;">Explorar</h2>
+        <h2 style="margin:0;">Inicio</h2>
         <div class="feed-controls feed-controls-desktop">
           <input type="search" id="feed-search" placeholder="Buscar...">
           <select id="feed-filter">
@@ -33,8 +33,12 @@ export function renderFeed(container: HTMLElement): () => void {
         </div>
       </div>
 
-      <button class="search-fab" id="search-fab" aria-label="Buscar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <button class="search-fab" id="search-fab" aria-label="Buscar y filtrar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="7" y1="12" x2="17" y2="12"/>
+          <line x1="10" y1="18" x2="14" y2="18"/>
+        </svg>
       </button>
 
       <div id="feed-grid" class="grid"></div>

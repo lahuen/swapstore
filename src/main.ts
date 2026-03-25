@@ -74,7 +74,7 @@ function renderLayout() {
         </div>
       </div>
       <ul class="nav-tabs">
-        <li><a href="#feed" class="nav-link" data-tab="#feed">Explorar</a></li>
+        <li><a href="#feed" class="nav-link" data-tab="#feed">Inicio</a></li>
         <li><a href="#new" class="nav-link" data-tab="#new">Publicar</a></li>
         <li><a href="#deals" class="nav-link" data-tab="#deals">Tratos</a></li>
         <li><a href="#mine" class="nav-link" data-tab="#mine">Mis avisos</a></li>
@@ -85,23 +85,42 @@ function renderLayout() {
     <main id="view" class="container-fluid"></main>
     <nav class="bottom-bar" id="bottom-bar">
       <a href="#feed" class="bottom-tab nav-link" data-tab="#feed">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <span>Explorar</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5"/>
+          <path d="M5 8.5V19c0 .6.4 1 1 1h3v-5.5c0-.3.2-.5.5-.5h5c.3 0 .5.2.5.5V20h3c.6 0 1-.4 1-1V8.5"/>
+        </svg>
+        <span>Inicio</span>
       </a>
       <a href="#new" class="bottom-tab nav-link" data-tab="#new">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M5 12h14"/>
+          <rect x="3" y="3" width="18" height="18" rx="4"/>
+        </svg>
         <span>Publicar</span>
       </a>
       <a href="#deals" class="bottom-tab nav-link" data-tab="#deals">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 11c-1.5 0-3-1-3-3s1.5-3 3-3 3 1 3 3"/>
+          <path d="M17 11c1.5 0 3-1 3-3s-1.5-3-3-3-3 1-3 3"/>
+          <path d="M10 8h4"/>
+          <path d="M5 19c0-3 2.5-5 7-5s7 2 7 5"/>
+          <circle cx="12" cy="11" r="2.5"/>
+        </svg>
         <span>Tratos</span>
       </a>
       <a href="#mine" class="bottom-tab nav-link" data-tab="#mine">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <path d="M4 9h16"/>
+          <path d="M9 9v11"/>
+        </svg>
         <span>Mis avisos</span>
       </a>
       <a href="#profile" class="bottom-tab nav-link" data-tab="#profile">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.08 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1.08z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/>
+        </svg>
         <span>Perfil</span>
       </a>
     </nav>

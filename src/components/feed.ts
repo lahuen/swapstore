@@ -6,15 +6,15 @@ import type { Listing, WithId } from '../lib/types';
 export function renderFeed(container: HTMLElement): () => void {
   container.innerHTML = `
     <div class="container-fluid">
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:1rem;">
+      <div class="feed-header">
         <h2 style="margin:0;">Explorar</h2>
-        <div style="display:flex;gap:.5rem;flex:1;justify-content:flex-end;min-width:0;">
-          <input type="search" id="feed-search" placeholder="Buscar..." style="margin:0;flex:1;min-width:0;max-width:200px;">
-          <select id="feed-filter" style="margin:0;flex-shrink:0;max-width:140px;">
+        <div class="feed-controls">
+          <input type="search" id="feed-search" placeholder="Buscar...">
+          <select id="feed-filter">
             <option value="">Todo</option>
             <option value="product">Productos</option>
             <option value="service">Servicios</option>
-            <option value="swap">Intercambio con gestos ✦</option>
+            <option value="swap">Intercambio ✦</option>
           </select>
         </div>
       </div>

@@ -347,6 +347,38 @@ nav.app-nav {
   border: none;
 }
 
+/* Feed header */
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.feed-controls {
+  display: flex;
+  gap: .5rem;
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 0;
+}
+.feed-controls input,
+.feed-controls select {
+  margin: 0;
+  height: 2.4rem;
+  font-size: .9rem;
+  padding: .3rem .6rem;
+}
+.feed-controls input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  max-width: 220px;
+}
+.feed-controls select {
+  flex-shrink: 0;
+  max-width: 160px;
+}
+
 /* Card grid for feed */
 .grid {
   display: grid;
@@ -390,6 +422,27 @@ nav.app-nav {
   }
   .nav-mobile-only {
     display: list-item;
+  }
+
+  /* Feed header: stack vertically */
+  .feed-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .feed-controls {
+    justify-content: stretch;
+  }
+  .feed-controls input[type="search"] {
+    max-width: none;
+  }
+  .feed-controls select {
+    max-width: none;
+    flex: 1;
+  }
+
+  /* Global: compact form elements on mobile */
+  input, select, textarea {
+    font-size: 16px !important; /* prevents iOS zoom on focus */
   }
 
   /* Hero: stack vertically */

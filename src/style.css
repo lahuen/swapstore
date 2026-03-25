@@ -228,12 +228,13 @@ article:hover {
 
 /* Navigation bar */
 nav.app-nav {
+  display: block;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 0 1rem;
+  padding: 0 var(--pico-spacing);
 }
 .nav-top {
   display: flex;

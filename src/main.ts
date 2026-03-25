@@ -66,52 +66,50 @@ function renderLayout() {
         <a href="#feed" style="text-decoration:none;"><strong>Swap Store</strong></a>
         <div style="display:flex;align-items:center;gap:.5rem;">
           <a href="#wallet" class="nav-link shimmer shimmer-light" data-tab="#wallet" style="text-decoration:none;font-weight:600;color:var(--color-coral);padding:.15rem .5rem;border-radius:.25rem;" id="wallet-badge" title="Tus gestos">✦--</a>
-          <a href="#profile" class="nav-link nav-profile-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
+          <a href="#profile" class="nav-link" data-tab="#profile" style="text-decoration:none;display:flex;align-items:center;gap:.35rem;">
             ${photo ? `<img src="${esc(photo)}" alt="" style="width:28px;height:28px;border-radius:50%;">` : ''}
-            <small>${displayName}</small>
+            <small class="nav-desktop-only">${displayName}</small>
           </a>
-          <a href="#" id="logout-btn" class="nav-logout" style="font-size:.8rem;">Salir</a>
-          <button id="menu-toggle" class="menu-toggle" aria-label="Menú">
-            <span></span><span></span><span></span>
-          </button>
+          <a href="#" id="logout-btn" class="nav-desktop-only" style="font-size:.8rem;">Salir</a>
         </div>
       </div>
-      <ul class="nav-tabs" id="nav-tabs">
+      <ul class="nav-tabs">
         <li><a href="#feed" class="nav-link" data-tab="#feed">Explorar</a></li>
         <li><a href="#new" class="nav-link" data-tab="#new">Publicar</a></li>
         <li><a href="#deals" class="nav-link" data-tab="#deals">Tratos</a></li>
         <li><a href="#mine" class="nav-link" data-tab="#mine">Mis avisos</a></li>
         <li id="nav-support" style="display:none;"><a href="#support" class="nav-link" data-tab="#support">Soporte</a></li>
         <li id="nav-admin" style="display:none;"><a href="#admin" class="nav-link" data-tab="#admin">Admin</a></li>
-        <li class="nav-mobile-only"><a href="#profile" class="nav-link" data-tab="#profile">Perfil</a></li>
-        <li class="nav-mobile-only"><a href="#" id="logout-btn-mobile" style="font-size:.85rem;">Salir</a></li>
       </ul>
     </nav>
     <main id="view" class="container-fluid"></main>
+    <nav class="bottom-bar" id="bottom-bar">
+      <a href="#feed" class="bottom-tab nav-link" data-tab="#feed">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Explorar</span>
+      </a>
+      <a href="#new" class="bottom-tab nav-link" data-tab="#new">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>Publicar</span>
+      </a>
+      <a href="#deals" class="bottom-tab nav-link" data-tab="#deals">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Tratos</span>
+      </a>
+      <a href="#mine" class="bottom-tab nav-link" data-tab="#mine">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Mis avisos</span>
+      </a>
+      <a href="#profile" class="bottom-tab nav-link" data-tab="#profile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.08 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1.08z"/></svg>
+        <span>Perfil</span>
+      </a>
+    </nav>
   `;
 
   document.getElementById('logout-btn')!.addEventListener('click', (e) => {
     e.preventDefault();
     signOut(auth);
-  });
-  document.getElementById('logout-btn-mobile')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOut(auth);
-  });
-
-  // Hamburger toggle
-  const menuToggle = document.getElementById('menu-toggle')!;
-  const navTabs = document.getElementById('nav-tabs')!;
-  menuToggle.addEventListener('click', () => {
-    const open = navTabs.classList.toggle('open');
-    menuToggle.classList.toggle('open', open);
-  });
-  // Close menu on nav link click (mobile)
-  navTabs.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('a')) {
-      navTabs.classList.remove('open');
-      menuToggle.classList.remove('open');
-    }
   });
 
   // Live-update wallet badge + nav role links

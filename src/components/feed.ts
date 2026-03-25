@@ -8,7 +8,7 @@ export function renderFeed(container: HTMLElement): () => void {
     <div class="container-fluid">
       <div class="feed-header">
         <h2 style="margin:0;">Explorar</h2>
-        <div class="feed-controls">
+        <div class="feed-controls feed-controls-desktop">
           <input type="search" id="feed-search" placeholder="Buscar...">
           <select id="feed-filter">
             <option value="">Todo</option>
@@ -18,13 +18,64 @@ export function renderFeed(container: HTMLElement): () => void {
           </select>
         </div>
       </div>
+
+      <!-- Mobile: floating search overlay -->
+      <div class="search-overlay" id="search-overlay">
+        <div class="search-overlay-bar">
+          <input type="search" id="feed-search-mobile" placeholder="Buscar...">
+          <select id="feed-filter-mobile">
+            <option value="">Todo</option>
+            <option value="product">Productos</option>
+            <option value="service">Servicios</option>
+            <option value="swap">Intercambio ✦</option>
+          </select>
+          <button type="button" class="search-overlay-close outline" id="search-close">✕</button>
+        </div>
+      </div>
+
+      <button class="search-fab" id="search-fab" aria-label="Buscar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
       <div id="feed-grid" class="grid"></div>
     </div>
   `;
 
   const grid = document.getElementById('feed-grid')!;
+  // Desktop controls
   const searchInput = document.getElementById('feed-search') as HTMLInputElement;
   const filterSelect = document.getElementById('feed-filter') as HTMLSelectElement;
+  // Mobile controls
+  const searchMobile = document.getElementById('feed-search-mobile') as HTMLInputElement;
+  const filterMobile = document.getElementById('feed-filter-mobile') as HTMLSelectElement;
+  const overlay = document.getElementById('search-overlay')!;
+  const fab = document.getElementById('search-fab')!;
+  const closeBtn = document.getElementById('search-close')!;
+
+  // Sync mobile ↔ desktop
+  function syncFromMobile() {
+    searchInput.value = searchMobile.value;
+    filterSelect.value = filterMobile.value;
+    render();
+  }
+  function syncFromDesktop() {
+    searchMobile.value = searchInput.value;
+    filterMobile.value = filterSelect.value;
+    render();
+  }
+
+  fab.addEventListener('click', () => {
+    overlay.classList.add('open');
+    searchMobile.focus();
+  });
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('open');
+  });
+
+  searchInput.addEventListener('input', syncFromDesktop);
+  filterSelect.addEventListener('change', syncFromDesktop);
+  searchMobile.addEventListener('input', syncFromMobile);
+  filterMobile.addEventListener('change', syncFromMobile);
 
   function render() {
     let items = getListings();
@@ -50,8 +101,6 @@ export function renderFeed(container: HTMLElement): () => void {
     });
   }
 
-  searchInput.addEventListener('input', render);
-  filterSelect.addEventListener('change', render);
   const unsub = subscribe(render, ['listings']);
   render();
 

@@ -1,6 +1,7 @@
+import { signOut } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
-import { subscribe, getProfile, getConfig } from '../lib/store';
+import { subscribe, getProfile, getConfig, isAdmin, isSupport } from '../lib/store';
 import { esc } from '../lib/sanitize';
 import { validateCuit } from '../lib/cuit';
 import { createTicket, addTicketReply, getMyTickets } from '../lib/tickets';
@@ -90,6 +91,13 @@ export function renderProfile(container: HTMLElement): () => void {
 
         <!-- My tickets -->
         <div id="my-tickets" style="margin-top:1rem;"></div>
+
+        <hr style="margin:1.5rem 0;">
+        <div style="display:flex;flex-direction:column;gap:.5rem;">
+          ${isSupport() ? '<a href="#support">Panel de soporte</a>' : ''}
+          ${isAdmin() ? '<a href="#admin">Panel de administracion</a>' : ''}
+          <a href="#" id="profile-logout" style="color:var(--color-text-muted);font-size:.9rem;">Cerrar sesion</a>
+        </div>
       </div>
     `;
 
@@ -179,6 +187,12 @@ export function renderProfile(container: HTMLElement): () => void {
       }
       btn.removeAttribute('aria-busy');
       btn.disabled = false;
+    });
+
+    // Logout from profile
+    document.getElementById('profile-logout')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut(auth);
     });
 
     // Load user's tickets

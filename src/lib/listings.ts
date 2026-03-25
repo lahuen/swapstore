@@ -1,7 +1,9 @@
 import { collection, addDoc, updateDoc, doc, serverTimestamp, getDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, auth, storage } from './firebase';
+import { db, auth } from './firebase';
 import type { Listing, WithId } from './types';
+
+const GCS_BUCKET = 'lahuen-swap-store';
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function createListing(data: Omit<Listing, 'userId' | 'userName' | 'userPhoto' | 'createdAt' | 'status'>): Promise<string> {
   const user = auth.currentUser;
@@ -27,9 +29,25 @@ export async function getListing(id: string): Promise<WithId<Listing> | null> {
 }
 
 export async function uploadListingImage(file: File, listingId: string): Promise<string> {
+  if (!auth.currentUser) throw new Error('Not authenticated');
+  if (!file.type.startsWith('image/')) throw new Error('Solo se permiten imágenes');
+  if (file.size > MAX_IMAGE_SIZE) throw new Error('La imagen no puede superar 5MB');
+
   const ext = file.name.split('.').pop() || 'jpg';
-  const path = `listings/${listingId}/${Date.now()}.${ext}`;
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file);
-  return getDownloadURL(storageRef);
+  const objectName = `listings/${listingId}/${Date.now()}.${ext}`;
+
+  const url = `https://storage.googleapis.com/upload/storage/v1/b/${GCS_BUCKET}/o?uploadType=media&name=${encodeURIComponent(objectName)}`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': file.type },
+    body: file,
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Error al subir imagen: ${err}`);
+  }
+
+  return `https://storage.googleapis.com/${GCS_BUCKET}/${objectName}`;
 }

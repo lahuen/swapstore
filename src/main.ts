@@ -85,41 +85,41 @@ function renderLayout() {
     <main id="view" class="container-fluid"></main>
     <nav class="bottom-bar" id="bottom-bar">
       <a href="#feed" class="bottom-tab nav-link" data-tab="#feed">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9.5L12 3l9 6.5"/>
-          <path d="M5 8.5V19c0 .6.4 1 1 1h3v-5.5c0-.3.2-.5.5-.5h5c.3 0 .5.2.5.5V20h3c.6 0 1-.4 1-1V8.5"/>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 10.2c.2-.3 4-6.8 8.3-7 4.5-.2 8.7 6.5 8.7 6.5"/>
+          <path d="M5.2 9.5l-.3 10c0 .8.5 1.2 1.2 1.2h2.8l.2-4.5c.1-.7.6-1 1.2-1h3.5c.6 0 1 .4 1.1 1l.1 4.5h2.8c.8 0 1.3-.5 1.2-1.2l-.2-10"/>
         </svg>
         <span>Inicio</span>
       </a>
       <a href="#new" class="bottom-tab nav-link" data-tab="#new">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 5v14M5 12h14"/>
-          <rect x="3" y="3" width="18" height="18" rx="4"/>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.2 5.5c-.1 0-.2 5.7 0 12.8"/>
+          <path d="M5.5 11.8c0 .1 5.8.3 13 .2"/>
         </svg>
         <span>Publicar</span>
       </a>
       <a href="#deals" class="bottom-tab nav-link" data-tab="#deals">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 11c-1.5 0-3-1-3-3s1.5-3 3-3 3 1 3 3"/>
-          <path d="M17 11c1.5 0 3-1 3-3s-1.5-3-3-3-3 1-3 3"/>
-          <path d="M10 8h4"/>
-          <path d="M5 19c0-3 2.5-5 7-5s7 2 7 5"/>
-          <circle cx="12" cy="11" r="2.5"/>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4.5 13c.5-.3 2-1.5 3.8-1.3 1.5.2 2.2 1 3.5 1s2.2-.8 3.5-1c1.8-.2 3.3 1 3.8 1.3"/>
+          <path d="M6.5 13.2c-.2 1.5-.3 3.5.8 5 1 1.2 2.5 1.5 4.5 1.5s3.5-.3 4.5-1.5c1.1-1.5 1-3.5.8-5"/>
+          <path d="M9 10.5c-.5-2 .5-4 1.5-4.5.8-.4 1.5-.2 2.2.5.5.5.8 1.8.3 3.5"/>
         </svg>
         <span>Tratos</span>
       </a>
       <a href="#mine" class="bottom-tab nav-link" data-tab="#mine">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="4" y="4" width="16" height="16" rx="2"/>
-          <path d="M4 9h16"/>
-          <path d="M9 9v11"/>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 5.5c-.1 0 13.5-.2 14 0"/>
+          <path d="M5.2 5.5l-.2 13.5c0 .5.3.8.8.8"/>
+          <path d="M5 10.2h14"/>
+          <path d="M10 10v9.8"/>
+          <path d="M19 5.5v14c0 .5-.3.8-.8.8H5.8"/>
         </svg>
-        <span>Mis avisos</span>
+        <span>Avisos</span>
       </a>
       <a href="#profile" class="bottom-tab nav-link" data-tab="#profile">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 11.5c-2.2 0-3.5-1.8-3.5-3.8S9.8 4 12 4s3.5 1.7 3.5 3.7-1.3 3.8-3.5 3.8z"/>
+          <path d="M5.5 20.5c.2-3.5 3-5.8 6.5-5.8s6.3 2.3 6.5 5.8"/>
         </svg>
         <span>Perfil</span>
       </a>

@@ -1,4 +1,4 @@
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 
 export function renderLogin(container: HTMLElement) {
@@ -76,13 +76,7 @@ export function renderLogin(container: HTMLElement) {
     </div>
   `;
 
-  document.getElementById('google-login')!.addEventListener('click', async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (err: any) {
-      const errEl = document.getElementById('login-error')!;
-      errEl.textContent = err.code === 'auth/popup-closed-by-user' ? '' : `Error: ${err.message}`;
-      errEl.style.display = err.code === 'auth/popup-closed-by-user' ? 'none' : 'block';
-    }
+  document.getElementById('google-login')!.addEventListener('click', () => {
+    signInWithRedirect(auth, googleProvider);
   });
 }

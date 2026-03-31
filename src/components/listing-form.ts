@@ -93,6 +93,9 @@ export function renderListingForm(container: HTMLElement, editId?: string): (() 
     });
   });
 
+  // Track existing images for edit mode
+  let existingImages: string[] = [];
+
   // Load existing data if editing
   if (editId) {
     getListing(editId).then(l => {
@@ -106,8 +109,9 @@ export function renderListingForm(container: HTMLElement, editId?: string): (() 
       if (l.cashPrice) (form.elements.namedItem('cashPrice') as HTMLInputElement).value = String(l.cashPrice);
       (form.elements.namedItem('swapHint') as HTMLInputElement).value = l.swapHint || '';
       (form.elements.namedItem('location') as HTMLInputElement).value = l.location || '';
-      if (l.images?.length) {
-        imgPreview.innerHTML = l.images.map(u => `<img src="${esc(u)}" style="width:80px;height:80px;object-fit:cover;border-radius:var(--pico-border-radius);">`).join('');
+      existingImages = l.images || [];
+      if (existingImages.length) {
+        imgPreview.innerHTML = existingImages.map(u => `<img src="${esc(u)}" style="width:80px;height:80px;object-fit:cover;border-radius:var(--pico-border-radius);">`).join('');
       }
     });
   }
@@ -133,13 +137,15 @@ export function renderListingForm(container: HTMLElement, editId?: string): (() 
       };
 
       if (editId) {
-        // Upload new images if provided
+        // Upload new images if provided, otherwise keep existing
         const files = Array.from(imgInput.files || []).slice(0, 3);
         if (files.length) {
           for (const file of files) {
             const url = await uploadListingImage(file, editId);
             data.images.push(url);
           }
+        } else {
+          data.images = existingImages;
         }
         await updateListing(editId, data);
       } else {

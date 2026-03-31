@@ -1,4 +1,4 @@
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut, getRedirectResult } from 'firebase/auth';
 import { auth } from './lib/firebase';
 import { renderLogin } from './components/login';
 import { ensureUserProfile } from './lib/users';
@@ -25,6 +25,13 @@ window.addEventListener('unhandledrejection', (e) => {
 
 root.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;min-height:100vh;"><p aria-busy="true">Cargando...</p></div>`;
 
+// Wait for redirect result before listening to auth state
+// This prevents showing login briefly when returning from Google
+let redirectHandled = false;
+getRedirectResult(auth).catch(() => {}).finally(() => {
+  redirectHandled = true;
+});
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const profile = await ensureUserProfile(user);
@@ -48,6 +55,13 @@ onAuthStateChanged(auth, async (user) => {
     }
     navigateToHash();
   } else {
+    // Don't show login until redirect result is processed
+    if (!redirectHandled) {
+      await getRedirectResult(auth).catch(() => {});
+      redirectHandled = true;
+      // If user signed in via redirect, onAuthStateChanged will fire again with user
+      if (auth.currentUser) return;
+    }
     layoutReady = false;
     window.removeEventListener('hashchange', navigateToHash);
     if (cleanup) { cleanup(); cleanup = null; }

@@ -137,27 +137,17 @@ export function renderListingForm(container: HTMLElement, editId?: string): (() 
       };
 
       if (editId) {
-        // Upload new images if provided, otherwise keep existing
+        // Upload new images in parallel, otherwise keep existing
         const files = Array.from(imgInput.files || []).slice(0, 3);
-        if (files.length) {
-          for (const file of files) {
-            const url = await uploadListingImage(file, editId);
-            data.images.push(url);
-          }
-        } else {
-          data.images = existingImages;
-        }
+        data.images = files.length
+          ? await Promise.all(files.map(f => uploadListingImage(f, editId)))
+          : existingImages;
         await updateListing(editId, data);
       } else {
         const id = await createListing(data);
-        // Upload images
         const files = Array.from(imgInput.files || []).slice(0, 3);
         if (files.length) {
-          const urls: string[] = [];
-          for (const file of files) {
-            const url = await uploadListingImage(file, id);
-            urls.push(url);
-          }
+          const urls = await Promise.all(files.map(f => uploadListingImage(f, id)));
           await updateListing(id, { images: urls });
         }
       }

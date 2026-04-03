@@ -159,7 +159,19 @@ function renderLayout() {
   updateProfileUI();
 }
 
-function navigateToHash() {
+// Route config — lazy imports are cached by the bundler after first load
+const routes: Record<string, () => Promise<(v: HTMLElement, id?: string) => (() => void) | void | Promise<(() => void) | null>>> = {
+  '#feed': () => import('./components/feed').then(m => m.renderFeed),
+  '#new': () => import('./components/listing-form').then(m => m.renderListingForm),
+  '#deals': () => import('./components/my-deals').then(m => m.renderMyDeals),
+  '#mine': () => import('./components/my-listings').then(m => m.renderMyListings),
+  '#wallet': () => import('./components/wallet-view').then(m => m.renderWalletView),
+  '#profile': () => import('./components/profile').then(m => m.renderProfile),
+  '#support': () => import('./components/support-panel').then(m => m.renderSupportPanel),
+  '#admin': () => import('./components/admin-dashboard').then(m => m.renderAdminDashboard),
+};
+
+async function navigateToHash() {
   if (cleanup) { cleanup(); cleanup = null; }
   const hash = window.location.hash || '#feed';
   const view = document.getElementById('view');
@@ -171,58 +183,25 @@ function navigateToHash() {
     a.classList.toggle('active-link', hash === tab || (hash.startsWith('#listing/') && tab === '#feed') || (hash.startsWith('#edit/') && tab === '#mine'));
   });
 
-  if (hash.startsWith('#listing/')) {
-    const id = hash.split('/')[1];
-    import('./components/listing-detail').then(({ renderListingDetail }) => {
-      renderListingDetail(view, id).then(c => { cleanup = c || null; });
-    });
-  } else if (hash.startsWith('#edit/')) {
-    const id = hash.split('/')[1];
-    import('./components/listing-form').then(({ renderListingForm }) => {
+  // Show instant loading feedback
+  view.innerHTML = '<p aria-busy="true" style="text-align:center;padding:2rem;">Cargando...</p>';
+
+  try {
+    if (hash.startsWith('#listing/')) {
+      const id = hash.split('/')[1];
+      const { renderListingDetail } = await import('./components/listing-detail');
+      cleanup = await renderListingDetail(view, id) || null;
+    } else if (hash.startsWith('#edit/')) {
+      const id = hash.split('/')[1];
+      const { renderListingForm } = await import('./components/listing-form');
       cleanup = renderListingForm(view, id) || null;
-    });
-  } else {
-    switch (hash) {
-      case '#new':
-        import('./components/listing-form').then(({ renderListingForm }) => {
-          cleanup = renderListingForm(view) || null;
-        });
-        break;
-      case '#deals':
-        import('./components/my-deals').then(({ renderMyDeals }) => {
-          cleanup = renderMyDeals(view) || null;
-        });
-        break;
-      case '#mine':
-        import('./components/my-listings').then(({ renderMyListings }) => {
-          cleanup = renderMyListings(view) || null;
-        });
-        break;
-      case '#wallet':
-        import('./components/wallet-view').then(({ renderWalletView }) => {
-          cleanup = renderWalletView(view) || null;
-        });
-        break;
-      case '#profile':
-        import('./components/profile').then(({ renderProfile }) => {
-          cleanup = renderProfile(view) || null;
-        });
-        break;
-      case '#support':
-        import('./components/support-panel').then(({ renderSupportPanel }) => {
-          cleanup = renderSupportPanel(view) || null;
-        });
-        break;
-      case '#admin':
-        import('./components/admin-dashboard').then(({ renderAdminDashboard }) => {
-          cleanup = renderAdminDashboard(view) || null;
-        });
-        break;
-      default:
-        import('./components/feed').then(({ renderFeed }) => {
-          cleanup = renderFeed(view) || null;
-        });
-        break;
+    } else {
+      const loader = routes[hash] || routes['#feed'];
+      const render = await loader();
+      cleanup = (await render(view)) || null;
     }
+  } catch (err) {
+    console.error('Navigation error:', err);
+    view.innerHTML = '<p style="text-align:center;color:var(--pico-del-color);">Error al cargar la seccion.</p>';
   }
 }

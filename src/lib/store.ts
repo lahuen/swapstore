@@ -66,12 +66,11 @@ export function initStore() {
     (err) => console.error('store tx seller:', err),
   ));
 
-  // My profile
+  // My profile (single doc listener)
   unsubs.push(onSnapshot(
-    collection(db, 'users'),
+    doc(db, 'users', uid),
     (snap) => {
-      const d = snap.docs.find(d => d.id === uid);
-      profile = d ? { id: d.id, ...d.data() } as WithId<UserProfile> : null;
+      profile = snap.exists() ? { id: snap.id, ...snap.data() } as WithId<UserProfile> : null;
       notify('profile');
     },
     (err) => console.error('store profile:', err),

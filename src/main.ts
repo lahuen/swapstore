@@ -1,4 +1,4 @@
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut, getRedirectResult } from 'firebase/auth';
 import { auth } from './lib/firebase';
 import { renderLogin } from './components/login';
 import { ensureUserProfile } from './lib/users';
@@ -25,7 +25,16 @@ window.addEventListener('unhandledrejection', (e) => {
 
 root.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;min-height:100vh;"><p aria-busy="true">Cargando...</p></div>`;
 
-onAuthStateChanged(auth, async (user) => {
+// Process pending redirect (if returning from Google sign-in)
+// Must resolve BEFORE onAuthStateChanged renders login
+const redirectReady = getRedirectResult(auth).catch(() => null);
+
+async function boot() {
+  await redirectReady;
+  onAuthStateChanged(auth, handleAuth);
+}
+
+async function handleAuth(user: import('firebase/auth').User | null) {
   if (user) {
     const profile = await ensureUserProfile(user);
     if (profile.suspended) {
@@ -54,7 +63,9 @@ onAuthStateChanged(auth, async (user) => {
     destroyStore();
     renderLogin(root);
   }
-});
+}
+
+boot();
 
 function renderLayout() {
   const displayName = esc(auth.currentUser?.displayName || auth.currentUser?.email?.split('@')[0] || '');

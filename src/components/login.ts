@@ -1,4 +1,4 @@
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signInWithRedirect, browserPopupRedirectResolver } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 
 export function renderLogin(container: HTMLElement) {
@@ -77,11 +77,18 @@ export function renderLogin(container: HTMLElement) {
   `;
 
   document.getElementById('google-login')!.addEventListener('click', async () => {
+    const errEl = document.getElementById('login-error')!;
+    errEl.style.display = 'none';
     try {
-      await signInWithPopup(auth, googleProvider);
+      // Try popup first (works on most desktops)
+      await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
     } catch (err: any) {
       if (err.code === 'auth/popup-closed-by-user') return;
-      const errEl = document.getElementById('login-error')!;
+      // Popup blocked or COOP issue — fall back to redirect
+      if (err.code === 'auth/popup-blocked' || err.code === 'auth/cancelled-popup-request' || err.message?.includes('COOP')) {
+        signInWithRedirect(auth, googleProvider, browserPopupRedirectResolver);
+        return;
+      }
       errEl.textContent = `Error: ${err.message}`;
       errEl.style.display = 'block';
     }
